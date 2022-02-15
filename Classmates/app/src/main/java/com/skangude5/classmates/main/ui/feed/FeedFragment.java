@@ -1,4 +1,4 @@
-package com.skangude5.classmates.main.ui.home;
+package com.skangude5.classmates.main.ui.feed;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,24 +12,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.skangude5.classmates.R;
-import com.skangude5.classmates.databinding.FragmentHomeBinding;
+import com.skangude5.classmates.databinding.FragmentFeedBinding;
 
-public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-    private FragmentHomeBinding binding;
+public class FeedFragment extends Fragment {
+
+    private FeedViewModel feedViewModel;
+    private FragmentFeedBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        feedViewModel =
+                new ViewModelProvider(this).get(FeedViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentFeedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        feedViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

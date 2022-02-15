@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/badge_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3sp"
+                android:text="Skill"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/slate_gray"
+                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/badge_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/android"/>
+            <TextView
+                android:id="@+id/badge_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3sp"
+                android:text="Expert"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:textColor="@color/slate_gray" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.skangude5.classmates.main.ui.dashboard;
+package com.skangude5.classmates.main.ui.community;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,25 +18,24 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.skangude5.classmates.R;
 import com.skangude5.classmates.SplashScreen;
-import com.skangude5.classmates.databinding.FragmentDashboardBinding;
-import com.skangude5.classmates.main.MainActivity;
+import com.skangude5.classmates.databinding.FragmentCommunityBinding;
 
-public class DashboardFragment extends Fragment {
+public class CommunityFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
-    private FragmentDashboardBinding binding;
+    private CommunityViewModel communityViewModel;
+    private FragmentCommunityBinding binding;
     private Button button;
     FirebaseAuth mAuth;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        communityViewModel =
+                new ViewModelProvider(this).get(CommunityViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentCommunityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        communityViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
