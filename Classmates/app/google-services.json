@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "375960343092",
+    "project_id": "classmates-fb0b8",
+    "storage_bucket": "classmates-fb0b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375960343092:android:314fbeafb935454bbbb061",
+        "android_client_info": {
+          "package_name": "com.skangude5.classmates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375960343092-e5vpkl88lcnbqh2se69t6jj4nq3u2gg8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-uv_ObOsHGNeyP9zLcliVkfbYayUaIQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375960343092-e5vpkl88lcnbqh2se69t6jj4nq3u2gg8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

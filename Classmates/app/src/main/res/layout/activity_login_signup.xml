@@ -58,7 +58,7 @@
                 android:textColor="@color/dark_slate_gray"
                 android:layout_marginTop="20dp"/>
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textField"
+                android:id="@+id/signup_inputLayoutEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -66,10 +66,12 @@
                 app:startIconDrawable="@drawable/ic_baseline_email_24"
                 app:startIconTint="@color/slate_gray"
                 app:endIconMode="clear_text"
+                app:errorEnabled="true"
                 app:endIconTint="@color/slate_gray"
                 android:hint="Email">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -78,6 +80,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signup_inputLayoutPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -85,10 +88,12 @@
                 app:startIconDrawable="@drawable/ic_baseline_lock_24"
                 app:startIconTint="@color/slate_gray"
                 app:endIconTint="@color/slate_gray"
+                app:errorEnabled="true"
                 app:endIconMode="password_toggle"
                 android:hint="Password">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
@@ -97,9 +102,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/signup_inputLayoutConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                app:errorEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:startIconDrawable="@drawable/ic_baseline_lock_24"
                 app:startIconTint="@color/slate_gray"
@@ -108,6 +115,7 @@
                 android:hint="Confirm Password">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signup_confirm_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
