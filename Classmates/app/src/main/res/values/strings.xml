@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Classmates</string>
+    <string name="app_description">Community for smart programmers</string>
+    <string name="app_copyright">Classmates © 2022. All rights reserved.</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+</resources>

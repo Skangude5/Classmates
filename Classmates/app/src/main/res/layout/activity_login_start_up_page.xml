@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.StartUpPage">
+
+    <LinearLayout
+        android:id="@+id/start_up_page_icon_name_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/icon" />
+        <TextView
+            android:id="@+id/splascreen_app_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/dark_slate_gray"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_description"
+            android:gravity="center"
+            android:textColor="@color/slate_gray"
+            android:layout_marginTop="30dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/start_up_page_button_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/start_up_page_icon_name_linear_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/start_up_page_login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log in"
+            android:background="@drawable/background_button_slate_gray_outline"
+            android:textAllCaps="false"
+            android:textColor="@color/dark_slate_gray"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:layout_marginStart="40dp"
+            android:transitionName="login_page_transition"
+            android:layout_marginEnd="10dp"/>
+        <Button
+            android:id="@+id/start_up_page_signup_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign up"
+            android:background="@drawable/background_button_slate_gray_outline"
+            android:textAllCaps="false"
+            android:textColor="@color/dark_slate_gray"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:transitionName="signup_page_transition"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
