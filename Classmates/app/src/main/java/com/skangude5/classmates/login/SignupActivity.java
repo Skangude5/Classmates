@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class SignupActivity extends AppCompatActivity {
     private TextInputLayout signup_inputLayoutConfirmPassword;
     private EditText sign_up_confirm_password;
     FirebaseAuth mAuth;
+    private ProgressBar signup_page_progressbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,7 @@ public class SignupActivity extends AppCompatActivity {
         signup_inputLayoutEmail = findViewById(R.id.signup_inputLayoutEmail);
         signup_inputLayoutPassword = findViewById(R.id.signup_inputLayoutPassword);
         signup_inputLayoutConfirmPassword = findViewById(R.id.signup_inputLayoutConfirmPassword);
+        signup_page_progressbar = findViewById(R.id.signup_page_progressbar);
         signup_page_back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,15 +107,21 @@ public class SignupActivity extends AppCompatActivity {
             signup_inputLayoutConfirmPassword.setError("Confirm Password & Password does not match.");
             Toast.makeText(SignupActivity.this, "Confirm Password & Password does not match.", Toast.LENGTH_SHORT).show();
         } else {
+            signup_page_signup_button.setVisibility(View.INVISIBLE);
+            signup_page_progressbar.setVisibility(View.VISIBLE);
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        signup_page_signup_button.setVisibility(View.VISIBLE);
+                        signup_page_progressbar.setVisibility(View.INVISIBLE);
                         Toast.makeText(SignupActivity.this, "user registered successfully.", Toast.LENGTH_SHORT).show();
                         Intent mainIntent = new Intent(SignupActivity.this, LoginActivity.class);
                         SignupActivity.this.startActivity(mainIntent);
                         SignupActivity.this.finish();
                     } else {
+                        signup_page_signup_button.setVisibility(View.VISIBLE);
+                        signup_page_progressbar.setVisibility(View.INVISIBLE);
                         Toast.makeText(SignupActivity.this, "registration error."+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private  TextInputLayout login_inputLayoutEmail;
     private TextInputLayout login_inputLayoutPassword;
     FirebaseAuth mAuth;
+    private ProgressBar login_page_progressbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         login_password = findViewById(R.id.login_password);
         login_inputLayoutEmail = findViewById(R.id.login_inputLayoutEmail);
         login_inputLayoutPassword = findViewById(R.id.login_inputLayoutPassword);
+        login_page_progressbar = findViewById(R.id.login_page_progressbar);
         // set click listener callback
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,15 +106,21 @@ public class LoginActivity extends AppCompatActivity {
             login_inputLayoutPassword.setError("Password should contain at least 8 character's");
             Toast.makeText(LoginActivity.this, "Password should contain at least 8 character's", Toast.LENGTH_SHORT).show();
         } else {
+            login_button.setVisibility(View.GONE);
+            login_page_progressbar.setVisibility(View.VISIBLE);
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
+                        login_button.setVisibility(View.VISIBLE);
+                        login_page_progressbar.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this, "user registered successfully.", Toast.LENGTH_SHORT).show();
                         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                         LoginActivity.this.startActivity(mainIntent);
                         LoginActivity.this.finish();
                     } else {
+                        login_button.setVisibility(View.VISIBLE);
+                        login_page_progressbar.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this, "login error."+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -1,5 +1,6 @@
 package com.skangude5.classmates.main.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,18 +21,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.skangude5.classmates.R;
+import com.skangude5.classmates.SplashScreen;
 import com.skangude5.classmates.adapters.CustomRecyclerViewAdapterForBadgeItem;
 import com.skangude5.classmates.databinding.FragmentProfileBinding;
 import com.skangude5.classmates.model.Badge;
+import com.skangude5.classmates.staticData.Icons;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -46,6 +52,9 @@ public class ProfileFragment extends Fragment {
     private EditText profile_year_of_study_editText;
     private EditText profile_department_editText;
     private Button profile_save_button;
+
+    private Button profile_sign_out_button;
+    private Button profile_add_badge_button;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore fStore;
@@ -69,6 +78,8 @@ public class ProfileFragment extends Fragment {
         profile_year_of_study_editText = root.findViewById(R.id.profile_year_of_study_editText);
         profile_department_editText = root.findViewById(R.id.profile_department_editText);
         profile_save_button = root.findViewById(R.id.profile_save_button);
+        profile_sign_out_button = root.findViewById(R.id.profile_sign_out_button);
+        profile_add_badge_button = root.findViewById(R.id.profile_add_badge_button);
 
         profile_user_name = root.findViewById(R.id.profile_user_name);
         profile_college_name = root.findViewById(R.id.profile_user_college_name);
@@ -101,7 +112,7 @@ public class ProfileFragment extends Fragment {
                 updateData();
             }
         });
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("users").document(userId).collection("profile").document("info");
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -115,7 +126,54 @@ public class ProfileFragment extends Fragment {
                 profile_year_and_department.setText(yearOfStudy+" year, "+ department);
             }
         });
+
+        CollectionReference collectionReference = fStore.collection("users").document(userId).collection("profile");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                assert value != null;
+                List<DocumentSnapshot> documentSnapshots = value.getDocuments();
+                ArrayList<Badge> badges = new ArrayList<>();
+                for(DocumentSnapshot documentSnapshot:documentSnapshots){
+                    if(documentSnapshot.contains("badge_type")){
+                        String badge_type = documentSnapshot.getString("badge_type");
+                        String badge_level = documentSnapshot.getString("badge_level");
+                        String badge_icon = documentSnapshot.getString("badge_icon");
+                        String badge_description = documentSnapshot.getString("badge_description");
+                        Integer icon = Icons.getIcon(badge_icon);
+                        Badge badge = new Badge(badge_type,icon,badge_level,badge_description);
+                        badges.add(badge);
+                    }
+                }
+                customAdapterForRecyclerView.updateData(badges);
+            }
+        });
+
+
+        profile_add_badge_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AddBadge.class);
+                startActivity(intent);
+            }
+        });
+
+
+        profile_sign_out_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOut();
+            }
+        });
         return root;
+    }
+
+    private void signOut() {
+        mAuth.signOut();
+        Toast.makeText(getContext(), "Signed out successfully..", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), SplashScreen.class);
+        startActivity(intent);
+        Objects.requireNonNull(getActivity()).finish();
     }
 
     private void updateData() {
@@ -140,7 +198,7 @@ public class ProfileFragment extends Fragment {
             return;
         }
 
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("users").document(userId).collection("profile").document("info");
         Map<String,Object> user = new HashMap<>();
         user.put("fullName",fullName);
         user.put("collegeName",collegeName);

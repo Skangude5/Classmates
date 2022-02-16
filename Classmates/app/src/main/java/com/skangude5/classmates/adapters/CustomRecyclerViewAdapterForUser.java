@@ -21,6 +21,11 @@ public class CustomRecyclerViewAdapterForUser  extends RecyclerView.Adapter<Cust
     private ArrayList<User> localDataSet;
     private Context context;
 
+    public void updateData(ArrayList<User> users) {
+        localDataSet = users;
+        this.notifyDataSetChanged();
+    }
+
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).

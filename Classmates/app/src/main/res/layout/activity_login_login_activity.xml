@@ -125,18 +125,30 @@
                     android:textAllCaps="false"
                     android:textColor="@color/slate_gray" />
             </RelativeLayout>
-            <Button
-                android:id="@+id/login_page_login_button"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Log in"
-                android:backgroundTint="@color/dark_slate_gray"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"/>
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/login_page_login_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Log in"
+                    android:backgroundTint="@color/dark_slate_gray"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"/>
+                <ProgressBar
+                    android:id="@+id/login_page_progressbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

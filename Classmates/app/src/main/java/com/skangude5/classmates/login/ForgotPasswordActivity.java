@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private TextView forgot_password_page_login_button;
     private TextInputLayout forgot_password_textInputLayoutEmail;
     private EditText forgot_password_email;
+    private ProgressBar forgot_page_progressbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         forgot_password_page_back_button = findViewById(R.id.forgot_password_page_back_button);
         forgot_password_textInputLayoutEmail = findViewById(R.id.forgot_password_textInputLayoutEmail);
         forgot_password_email = findViewById(R.id.forgot_password_email);
+        forgot_page_progressbar = findViewById(R.id.forgot_page_progressbar);
 
         forgot_password_reset_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,14 +74,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             forgot_password_textInputLayoutEmail.setError("Please enter valid email.");
             Toast.makeText(ForgotPasswordActivity.this, "Please enter valid email.", Toast.LENGTH_SHORT).show();
         } else {
+            forgot_password_reset_button.setVisibility(View.INVISIBLE);
+            forgot_page_progressbar.setVisibility(View.VISIBLE);
             FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
+                        forgot_password_reset_button.setVisibility(View.VISIBLE);
+                        forgot_page_progressbar.setVisibility(View.INVISIBLE);
                         Toast.makeText(ForgotPasswordActivity.this, "Password resent link has been sent successfully.", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ForgotPasswordActivity.this,LoginActivity.class));
                         finish();
                     } else {
+                        forgot_password_reset_button.setVisibility(View.VISIBLE);
+                        forgot_page_progressbar.setVisibility(View.INVISIBLE);
                         Toast.makeText(ForgotPasswordActivity.this, "Error: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }

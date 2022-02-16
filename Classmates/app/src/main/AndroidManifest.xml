@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Classmates">
         <activity
+            android:name=".main.ui.profile.AddBadge"
+            android:exported="false" />
+        <activity
             android:name=".login.ForgotPasswordActivity"
             android:exported="false" />
         <activity

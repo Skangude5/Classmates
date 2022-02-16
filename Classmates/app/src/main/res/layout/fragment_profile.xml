@@ -125,7 +125,7 @@
                         android:layout_marginEnd="30dp"/>
 
                     <Button
-                        android:id="@+id/login_page_login_button"
+                        android:id="@+id/profile_add_badge_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Add new badge"

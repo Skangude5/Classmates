@@ -20,6 +20,11 @@ public class CustomRecyclerViewAdapterForBadgeItem  extends RecyclerView.Adapter
     private ArrayList<Badge> localDataSet;
     private Context context;
 
+    public void updateData(ArrayList<Badge> badges) {
+        localDataSet = badges;
+        this.notifyDataSetChanged();
+    }
+
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
