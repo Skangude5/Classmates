@@ -13,9 +13,14 @@
         <entry key="app/src/main/res/layout/activity_login_start_up_page.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/appbar.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/fragment_community.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.30885416666666665" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/fragment_feed.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="app/src/main/res/layout/recycler_view_item_for_badge.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/recycler_view_item_for_user_badge.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/recycler_view_item_for_user_list.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.30885416666666665" />
       </map>
     </option>
