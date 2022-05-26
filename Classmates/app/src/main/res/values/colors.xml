@@ -11,4 +11,6 @@
     <color name="slate_gray">#455D7A</color>
     <color name="slate_gray_10_alpha">#10455D7A</color>
     <color name="slate_gray_lite_without_alpha">#ECEFF2</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
 </resources>

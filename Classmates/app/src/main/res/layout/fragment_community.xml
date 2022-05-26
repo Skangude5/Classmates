@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/slate_gray_lite_without_alpha"
-    android:layout_marginBottom="?attr/actionBarSize"
     tools:context=".main.ui.community.CommunityFragment">
 
     <com.google.android.material.appbar.AppBarLayout

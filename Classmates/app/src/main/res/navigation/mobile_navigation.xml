@@ -22,4 +22,9 @@
         android:name="com.skangude5.classmates.main.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.skangude5.classmates.main.ui.post.AddPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
 </navigation>
