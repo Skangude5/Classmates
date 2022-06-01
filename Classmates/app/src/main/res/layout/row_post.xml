@@ -5,11 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    app:cardBackgroundColor="@color/colorWhite"
-    app:cardCornerRadius="3dp"
-    app:cardElevation="3dp"
-    app:cardUseCompatPadding="true"
-    app:contentPadding="5dp">
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    app:contentPadding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -28,12 +32,14 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="centerCrop"
+                android:layout_margin="5dp"
                 android:src="@drawable/profile" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -41,23 +47,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
-                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/utimetv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/darker_gray"
                     android:text="33 min" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/slate_gray_30_alpha"/>
 
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/morebtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:src="@drawable/ic_more" />
 
         </LinearLayout>
 
@@ -66,25 +74,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Title"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_margin="5dp"
+            android:textSize="20sp"
+            android:textColor="@color/slate_gray"/>
 
         <TextView
             android:id="@+id/descript"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Description"
-            android:textColor="@color/colorBlack" />
+            android:layout_margin="5dp"
+            android:padding="5sp"
+            android:textColor="@color/black" />
 
         <ImageView
             android:id="@+id/pimagetv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite" />
+            android:layout_height="300dp"
+            android:scaleType="fitCenter"
+            android:background="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -93,16 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="1.2K Likes"
-                android:textColor="@color/design_default_color_primary" />
-
-            <TextView
-                android:id="@+id/pcommentco"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="1.2K Comment"
-                android:textAlignment="textEnd"
-                android:textColor="@color/design_default_color_primary" />
+                android:textColor="@color/dark_slate_gray" />
         </LinearLayout>
 
         <View
@@ -114,6 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <Button
@@ -121,27 +126,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:autoLink="all"
-                android:background="@color/colorWhite"
-                android:drawableStart="@drawable/ic_like"
-                android:drawableLeft="@drawable/ic_like"
+                android:textColor="@color/slate_gray"
+                android:background="@drawable/like_button_background"
                 android:padding="5dp"
                 android:text="Like" />
 
-            <Button
-                android:id="@+id/comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autoLink="all"
-                android:background="@color/colorWhite"
-                android:drawableStart="@drawable/ic_comment"
-                android:drawableLeft="@drawable/ic_comment"
-                android:padding="5dp"
-                android:text="COMMENT" />
-
         </LinearLayout>
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

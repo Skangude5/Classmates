@@ -1,24 +1,22 @@
-package com.skangude5.classmates.main.ui.feed;
+package com.skangude5.classmates.main.ui.notice;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,17 +26,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.skangude5.classmates.R;
 import com.skangude5.classmates.adapters.AdapterPosts;
-import com.skangude5.classmates.databinding.FragmentFeedBinding;
 import com.skangude5.classmates.model.ModelPost;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class FeedFragment extends Fragment {
-
-    private FeedViewModel feedViewModel;
-    private FragmentFeedBinding binding;
+public class NoticeFragment extends Fragment {
 
     FirebaseAuth firebaseAuth;
     String myuid;
@@ -48,13 +41,11 @@ public class FeedFragment extends Fragment {
 
     private TextView empty_textview;
     private ProgressBar progress_bar;
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        feedViewModel =
-                new ViewModelProvider(this).get(FeedViewModel.class);
-
-        binding = FragmentFeedBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View root = inflater.inflate(R.layout.fragment_notice, container, false);
 
         progress_bar = root.findViewById(R.id.progress_bar);
         progress_bar.setVisibility(View.VISIBLE);
@@ -69,20 +60,14 @@ public class FeedFragment extends Fragment {
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         posts = new ArrayList<>();
-        adapterPosts = new AdapterPosts(getActivity(), posts, false);
+        adapterPosts = new AdapterPosts(getActivity(), posts, true);
         recyclerView.setAdapter(adapterPosts);
         loadPosts();
         return root;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
     private void loadPosts() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Posts");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Notices");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -90,7 +75,6 @@ public class FeedFragment extends Fragment {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     ModelPost modelPost = dataSnapshot1.getValue(ModelPost.class);
                     posts.add(modelPost);
-                    //
                 }
 
 
@@ -103,6 +87,7 @@ public class FeedFragment extends Fragment {
                     }
                     recyclerView.setVisibility(View.VISIBLE);
                     empty_textview.setVisibility(View.INVISIBLE);
+
                 }
                 progress_bar.setVisibility(View.GONE);
             }
@@ -126,13 +111,26 @@ public class FeedFragment extends Fragment {
         toolbar.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();// action with ID action_refresh was selected
             if (itemId == R.id.add_post) {
-                Bundle bundle = new Bundle();
-                bundle.putString("from","feed");
-                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-                navController.navigate(R.id.addPostFragment,bundle);
+                if(isValid()){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("from","notice");
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+                    navController.navigate(R.id.addPostFragment,bundle);
+                } else {
+                    Toast.makeText(requireContext(), "Only Admin can post notice", Toast.LENGTH_SHORT).show();
+                }
             }
             return false;
         });
     }
 
+    public static boolean isValid(){
+        try{
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            String email = mAuth.getCurrentUser().getEmail();
+            return email.equals("principal@gcoej.edu");
+        } catch (Exception ignored){
+            return false;
+        }
+    }
 }

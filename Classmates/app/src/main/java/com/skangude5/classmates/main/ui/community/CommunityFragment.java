@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.skangude5.classmates.R;
@@ -20,6 +22,7 @@ import com.skangude5.classmates.adapters.CustomRecyclerViewAdapterForUser;
 import com.skangude5.classmates.databinding.FragmentCommunityBinding;
 import com.skangude5.classmates.model.Badge;
 import com.skangude5.classmates.model.User;
+import com.skangude5.classmates.staticData.EmailValidator;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -48,6 +51,12 @@ public class CommunityFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                TextInputEditText invite_mail = root.findViewById(R.id.invite_mail);
+                if(EmailValidator.validate(invite_mail.getText().toString().trim())){
+                    Toast.makeText(requireContext(), "Invitation sent..", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "Invalid email.. try again..", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

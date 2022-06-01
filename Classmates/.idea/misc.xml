@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/edit.xml" value="0.2324074074074074" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/drawable/ic_outline_email_24.xml" value="0.32916666666666666" />
+        <entry key="app/src/main/res/drawable/like_button_background.xml" value="0.32916666666666666" />
         <entry key="app/src/main/res/layout/activity_login_activity.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/activity_login_forgot_password.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/activity_login_login_activity.xml" value="0.30885416666666665" />
@@ -21,13 +22,15 @@
         <entry key="app/src/main/res/layout/fragment_community.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/fragment_feed.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/fragment_notice.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="app/src/main/res/layout/recycler_view_item_for_badge.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/recycler_view_item_for_user_badge.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/recycler_view_item_for_user_list.xml" value="0.30885416666666665" />
-        <entry key="app/src/main/res/layout/row_post.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/row_post.xml" value="0.176" />
         <entry key="app/src/main/res/menu/add_badge_type.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/menu/feed_menu.xml" value="0.30885416666666665" />
       </map>
     </option>
   </component>

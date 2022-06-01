@@ -10,6 +10,7 @@
     <color name="dark_slate_gray">#233142</color>
     <color name="slate_gray">#455D7A</color>
     <color name="slate_gray_10_alpha">#10455D7A</color>
+    <color name="slate_gray_30_alpha">#30455D7A</color>
     <color name="slate_gray_lite_without_alpha">#ECEFF2</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>

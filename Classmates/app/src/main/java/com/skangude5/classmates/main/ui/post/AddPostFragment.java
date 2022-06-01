@@ -47,6 +47,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.skangude5.classmates.R;
 import com.skangude5.classmates.main.MainActivity;
+import com.skangude5.classmates.main.ui.notice.NoticeFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -73,6 +74,8 @@ public class AddPostFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseFirestore fStore;
     private String userId="";
+
+    boolean isNotice = false;
     public AddPostFragment() {
         // Required empty public constructor
     }
@@ -92,24 +95,47 @@ public class AddPostFragment extends Fragment {
         pd.setCanceledOnTouchOutside(false);
         Intent intent = getActivity().getIntent();
 
+        if(getArguments()!=null){
+            if(getArguments().getString("from").equals("feed")){
+                isNotice = false;
+                title.setVisibility(View.GONE);
+            } else{
+                isNotice = true;
+            }
+        }
+
         // Retrieving the user data like name ,email and profile pic using query
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        Query query = databaseReference.orderByChild("email").equalTo(email);
-        query.addValueEventListener(new ValueEventListener() {
+        mAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        DocumentReference documentReference = fStore.collection("users").document(userId).collection("profile").document("info");
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    name = dataSnapshot1.child("name").getValue().toString();
-                    email = "" + dataSnapshot1.child("email").getValue();
-                    dp = "" + dataSnapshot1.child("image").getValue().toString();
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value!=null){
+                    name = value.getString("fullName");
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
         });
+
+        // Retrieving the user data like name ,email and profile pic using query
+//        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+//        Query query = databaseReference.orderByChild("email").equalTo(email);
+//        query.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+//                    name = dataSnapshot1.child("name").getValue().toString();
+//                    email = "" + dataSnapshot1.child("email").getValue();
+//                    dp = "" + dataSnapshot1.child("image").getValue().toString();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
 
@@ -130,7 +156,11 @@ public class AddPostFragment extends Fragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String titl = "" + title.getText().toString().trim();
+                String titl = "P";
+                if(isNotice){
+                    titl = "" + title.getText().toString().trim();
+                }
+
                 String description = "" + des.getText().toString().trim();
 
                 // If empty set error
@@ -304,7 +334,13 @@ public class AddPostFragment extends Fragment {
                             hashMap.put("pcomments", "0");
 
                             // set the data into firebase and then empty the title ,description and image data
-                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Posts");
+                            DatabaseReference databaseReference;
+                            if(isNotice){
+                                databaseReference = FirebaseDatabase.getInstance().getReference("Notices");
+                            } else{
+                                databaseReference = FirebaseDatabase.getInstance().getReference("Posts");
+                            }
+
                             databaseReference.child(timestamp).setValue(hashMap)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override

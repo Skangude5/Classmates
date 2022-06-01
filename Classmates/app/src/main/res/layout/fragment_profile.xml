@@ -6,28 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginBottom="?attr/actionBarSize"
     android:background="@color/slate_gray_lite_without_alpha"
     tools:context=".main.ui.profile.ProfileFragment">
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/myToolBar_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/slate_gray"
-        android:elevation="5dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/Theme.Classmates"
-        app:elevation="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:cardElevation="10dp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:targetApi="lollipop">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:title="Profile"/>
-    </com.google.android.material.appbar.AppBarLayout>
+            app:title="Profile"
+            style="@style/Toolbar.TitleText"
+            android:elevation="10dp"/>
+    </androidx.cardview.widget.CardView>
 
     <ScrollView
         android:layout_width="match_parent"

@@ -169,11 +169,16 @@ public class ProfileFragment extends Fragment {
     }
 
     private void signOut() {
-        mAuth.signOut();
-        Toast.makeText(getContext(), "Signed out successfully..", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getContext(), SplashScreen.class);
-        startActivity(intent);
-        Objects.requireNonNull(getActivity()).finish();
+        try{
+            mAuth.signOut();
+            Toast.makeText(getContext(), "Signed out successfully..", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), SplashScreen.class);
+            startActivity(intent);
+            Objects.requireNonNull(getActivity()).finish();
+        } catch (Exception e){
+
+        }
+
     }
 
     private void updateData() {

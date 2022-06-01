@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.text.format.DateFormat;
 import android.view.Gravity;
@@ -48,13 +49,22 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     String myuid;
     private DatabaseReference liekeref, postref;
     boolean mprocesslike = false;
+    boolean isNotice = false;
 
-    public AdapterPosts(Context context, List<ModelPost> modelPosts) {
+    public AdapterPosts(Context context, List<ModelPost> modelPosts, boolean isNotice) {
         this.context = context;
         this.modelPosts = modelPosts;
         myuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         liekeref = FirebaseDatabase.getInstance().getReference().child("Likes");
-        postref = FirebaseDatabase.getInstance().getReference().child("Posts");
+
+        if (isNotice){
+            postref = FirebaseDatabase.getInstance().getReference().child("Notices");
+        } else {
+            postref = FirebaseDatabase.getInstance().getReference().child("Posts");
+        }
+
+
+        this.isNotice = isNotice;
     }
 
     List<ModelPost> modelPosts;
@@ -83,17 +93,20 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         calendar.setTimeInMillis(Long.parseLong(ptime));
         String timedate = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
         holder.name.setText(nameh);
-        holder.title.setText(titlee);
+        if(isNotice){
+            holder.title.setText(titlee);
+        } else {
+            holder.title.setVisibility(View.GONE);
+        }
         holder.description.setText(descri);
         holder.time.setText(timedate);
         holder.like.setText(plike + " Likes");
-        holder.comments.setText(comm + " Comments");
         setLikes(holder, ptime);
-        try {
-            Glide.with(context).load(dp).into(holder.picture);
-        } catch (Exception e) {
-
-        }
+//        try {
+//            Glide.with(context).load(dp).into(holder.picture);
+//        } catch (Exception e) {
+//
+//        }
         holder.image.setVisibility(View.VISIBLE);
         try {
             Glide.with(context).load(image).into(holder.image);
@@ -140,22 +153,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             }
         });
 
-        holder.more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMoreOptions(holder.more, uid, myuid, ptime, image);
-            }
-        });
 
-
-        holder.comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(context, PostDetailsActivity.class);
-//                intent.putExtra("pid", ptime);
-//                context.startActivity(intent);
-            }
-        });
     }
 
     private void showMoreOptions(ImageButton more, String uid, String myuid, final String pid, final String image) {
@@ -213,11 +211,13 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(pid).hasChild(myuid)) {
-                    holder.likebtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_liked, 0, 0, 0);
                     holder.likebtn.setText("Liked");
+                    holder.likebtn.setActivated(true);
+                    holder.likebtn.setTextColor(Color.parseColor("#FFFFFF"));
                 } else {
-                    holder.likebtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like, 0, 0, 0);
                     holder.likebtn.setText("Like");
+                    holder.likebtn.setActivated(false);
+                    holder.likebtn.setTextColor(Color.parseColor("#455D7A"));
                 }
             }
 
@@ -233,26 +233,27 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         return modelPosts.size();
     }
 
+    public void updateData(List<ModelPost> posts) {
+        this.modelPosts = posts;
+        notifyDataSetChanged();
+    }
+
     class MyHolder extends RecyclerView.ViewHolder {
-        ImageView picture, image;
-        TextView name, time, title, description, like, comments;
-        ImageButton more;
-        Button likebtn, comment;
+        ImageView image;
+        TextView name, time, title, description, like;
+        Button likebtn;
         LinearLayout profile;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-            picture = itemView.findViewById(R.id.picturetv);
+            //picture = itemView.findViewById(R.id.picturetv);
             image = itemView.findViewById(R.id.pimagetv);
             name = itemView.findViewById(R.id.unametv);
             time = itemView.findViewById(R.id.utimetv);
-            more = itemView.findViewById(R.id.morebtn);
             title = itemView.findViewById(R.id.ptitletv);
             description = itemView.findViewById(R.id.descript);
             like = itemView.findViewById(R.id.plikeb);
-            comments = itemView.findViewById(R.id.pcommentco);
             likebtn = itemView.findViewById(R.id.like);
-            comment = itemView.findViewById(R.id.comment);
             profile = itemView.findViewById(R.id.profilelayout);
         }
     }

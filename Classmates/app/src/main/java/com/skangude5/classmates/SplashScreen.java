@@ -19,37 +19,40 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user==null){
-            //Schedule intent that will open MainActivity after 2 sec
-            new Handler().postDelayed(new Runnable(){
-                @Override
-                public void run() {
-                    /* Create an Intent that will start the Menu-Activity. */
-                    Intent mainIntent = new Intent(SplashScreen.this, StartUpPage.class);
-                    SplashScreen.this.startActivity(mainIntent);
-                    SplashScreen.this.finish();
-                }
-            }, 2000);
-        } else {
-            //Schedule intent that will open MainActivity after 2 sec
-            new Handler().postDelayed(new Runnable(){
-                @Override
-                public void run() {
-                    /* Create an Intent that will start the Menu-Activity. */
-                    Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
-                    SplashScreen.this.startActivity(mainIntent);
-                    SplashScreen.this.finish();
-                }
-            }, 2000);
+        try{
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            if(user==null){
+                //Schedule intent that will open MainActivity after 2 sec
+                new Handler().postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                        /* Create an Intent that will start the Menu-Activity. */
+                        Intent mainIntent = new Intent(SplashScreen.this, StartUpPage.class);
+                        SplashScreen.this.startActivity(mainIntent);
+                        SplashScreen.this.finish();
+                    }
+                }, 2000);
+            } else {
+                //Schedule intent that will open MainActivity after 2 sec
+                new Handler().postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                        /* Create an Intent that will start the Menu-Activity. */
+                        Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
+                        SplashScreen.this.startActivity(mainIntent);
+                        SplashScreen.this.finish();
+                    }
+                }, 2000);
+            }
+        } catch (Exception e){
+
         }
+
     }
 }
